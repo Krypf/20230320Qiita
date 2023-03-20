@@ -1,0 +1,26 @@
+Number
+	ᴸ---Complex
+	ᴸ---Real
+		ᴸ---AbstractFloat
+			ᴸ---BigFloat
+			ᴸ---Float16
+			ᴸ---Float32
+			ᴸ---Float64
+		ᴸ---AbstractIrrational
+			ᴸ---Irrational
+		ᴸ---Integer
+			ᴸ---Bool
+			ᴸ---Signed
+				ᴸ---BigInt
+				ᴸ---Int128
+				ᴸ---Int16
+				ᴸ---Int32
+				ᴸ---Int64
+				ᴸ---Int8
+			ᴸ---Unsigned
+				ᴸ---UInt128
+				ᴸ---UInt16
+				ᴸ---UInt32
+				ᴸ---UInt64
+				ᴸ---UInt8
+		ᴸ---Rational
