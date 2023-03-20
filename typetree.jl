@@ -9,7 +9,7 @@ function showtypetree(T, io, level=0, tab=8)
         write(io, ladder)
     end
     println(T)
-    write(io, string(T)* "\n")
+    write(io, string(T) * "\n")
     for t in subtypes(T)
         showtypetree(t, io, level+1)# recurrence
     end
@@ -32,10 +32,12 @@ writetypetree(T)
 #%%
 using Dates# to measure time
 function stopcode_bytime(t0, threshold)
-    now() - t0 > Dates.Second(threshold)
+    now() - t0 > threshold
 end
 #%%
-function showAnytree(T, io, t0, level=0, tab=8,threshold=10)
+threshold_defalut = Dates.Second(10)::Second
+
+function showAnytree(T, io, t0, level=0, tab=8; threshold=threshold_defalut)
     ladder = "ᴸ" * repeat("-", 3)
     if level > 0
         print(level, " ")# substitute for a progress bar
@@ -43,12 +45,13 @@ function showAnytree(T, io, t0, level=0, tab=8,threshold=10)
         write(io, ladder)
     end
     # println(T)
-    write(io, string(T)* "\n")
+    write(io, string(T) * "\n")
     for t in subtypes(T)
         if t == Any
             continue# prevent an infinite loop
         end
-        showAnytree(t, io, t0, level+1)
+        showAnytree(t, io, t0, level+1; threshold=threshold)# not threshold=threshold_defalut
+        # print(now() - t0)
         if stopcode_bytime(t0, threshold)
             println("Time is up.")
             break
@@ -56,11 +59,11 @@ function showAnytree(T, io, t0, level=0, tab=8,threshold=10)
     end
     # https://en.wikibooks.org/wiki/Introducing_Julia/Types
 end
-function writeAnytree(T, t0; showtypetree=showtypetree, threshold=threshold)
+function writeAnytree(T, t0; threshold=threshold_defalut)
     file_name = string(T) * ".txt"
     io = IOBuffer();
 
-    showtypetree(T, io, t0)
+    showAnytree(T, io, t0; threshold=threshold)
     out = open(file_name,"w")
         write(out, String(take!(io)))
     close(out)
@@ -68,6 +71,6 @@ function writeAnytree(T, t0; showtypetree=showtypetree, threshold=threshold)
 end
 begin# reset the present time t0
     t0 = now()
-    threshold = 10::Int64# not Float64
-    @time writeAnytree(Any, t0;showtypetree=showAnytree, threshold=threshold)
+    threshold = Dates.Second(10)::Second
+    @time writeAnytree(Any, t0; threshold=threshold)
 end

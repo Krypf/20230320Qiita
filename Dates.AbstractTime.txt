@@ -1,0 +1,25 @@
+Dates.AbstractTime
+	ᴸ---Dates.Calendar
+		ᴸ---Dates.ISOCalendar
+	ᴸ---Dates.CompoundPeriod
+	ᴸ---Dates.Instant
+		ᴸ---Dates.UTInstant
+	ᴸ---Period
+		ᴸ---DatePeriod
+			ᴸ---Day
+			ᴸ---Month
+			ᴸ---Quarter
+			ᴸ---Week
+			ᴸ---Year
+		ᴸ---TimePeriod
+			ᴸ---Hour
+			ᴸ---Microsecond
+			ᴸ---Millisecond
+			ᴸ---Minute
+			ᴸ---Nanosecond
+			ᴸ---Second
+	ᴸ---TimeType
+		ᴸ---Date
+		ᴸ---Dates.AbstractDateTime
+			ᴸ---DateTime
+		ᴸ---Time
